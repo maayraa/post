@@ -33,8 +33,11 @@
   <!-- AdminLTE App -->
   <script src="views/dist/js/adminlte.min.js"></script>
 
+
+
+
 </head>
-<body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
+<body class="hold-transition skin-green sidebar-collapse sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Header. contains the nav menu. -->
@@ -42,7 +45,26 @@
   <!-- Left side column. contains the sidebar -->
   <?php include "modules/menu.php" ?>
   <!-- Content Wrapper. Contains page content -->
-  <?php include "modules/content.php" ?>
+  <?php
+    if(isset($_GET['ruta'])){
+      if($_GET['ruta'] == 'home' ||
+      $_GET['ruta'] == 'users' ||
+      $_GET['ruta'] == 'categories' ||
+      $_GET['ruta'] == 'products' ||
+      $_GET['ruta'] == 'customers' ||
+      $_GET['ruta'] == 'sales-create' ||
+      $_GET['ruta'] == 'sales-report' ||
+      $_GET['ruta'] == 'sales') {
+
+        include 'modules/'.$_GET['ruta'].'.php';      
+      } else{
+        include 'modules/404.php'; 
+    }
+  } else {
+    include 'modules/home.php';
+  }
+
+  ?>
 
   <?php include "modules/footer.php" ?>
 </div>
