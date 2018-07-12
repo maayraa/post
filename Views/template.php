@@ -1,3 +1,8 @@
+<?php
+  session_start();
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,6 +10,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Inventory System</title>
+
+  <link rel="icon" type="text/css" href="views/img/template/icono-negro.png">
+
   <!-- PLUGINS DE CSS -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -18,6 +26,7 @@
   <link rel="stylesheet" href="views/dist/css/AdminLTE.css">
   <!-- AdminLTE Skins -->
   <link rel="stylesheet" href="views/dist/css/skins/_all-skins.min.css">
+
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
@@ -33,43 +42,51 @@
   <!-- AdminLTE App -->
   <script src="views/dist/js/adminlte.min.js"></script>
 
-
-
-
 </head>
-<body class="hold-transition skin-green sidebar-collapse sidebar-mini">
-<!-- Site wrapper -->
-<div class="wrapper">
-  <!-- Header. contains the nav menu. -->
-  <?php include "modules/header.php" ?>
-  <!-- Left side column. contains the sidebar -->
-  <?php include "modules/menu.php" ?>
-  <!-- Content Wrapper. Contains page content -->
-  <?php
-    if(isset($_GET['ruta'])){
-      if($_GET['ruta'] == 'home' ||
-      $_GET['ruta'] == 'users' ||
-      $_GET['ruta'] == 'categories' ||
-      $_GET['ruta'] == 'products' ||
-      $_GET['ruta'] == 'customers' ||
-      $_GET['ruta'] == 'sales-create' ||
-      $_GET['ruta'] == 'sales-report' ||
-      $_GET['ruta'] == 'sales') {
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini login-page">
+  <?php if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == 'ok') { ?>
+    <!-- Site wrapper -->
+    <div class="wrapper">
 
-        include 'modules/'.$_GET['ruta'].'.php';      
-      } else{
-        include 'modules/404.php'; 
-    }
-  } else {
-    include 'modules/home.php';
-  }
+      <!-- Header. contains the nav menu. -->
+      <?php include 'modules/header.php' ?>
 
-  ?>
+      <!-- Left side column. contains the sidebar -->
+      <?php include 'modules/main.php' ?>
 
-  <?php include "modules/footer.php" ?>
-</div>
-<!-- ./wrapper -->
+      <!-- Content Wrapper. Contains page content -->
+      <?php
+        if (isset($_GET['ruta'])) {
+          if ($_GET['ruta'] == 'home' ||
+              $_GET['ruta'] == 'users' ||
+              $_GET['ruta'] == 'categories' ||
+              $_GET['ruta'] == 'products' ||
+              $_GET['ruta'] == 'customers' ||
+              $_GET['ruta'] == 'sales' ||
+              $_GET['ruta'] == 'sales-create' ||
+              $_GET['ruta'] == 'sales-report' ||
+              $_GET['ruta'] == 'logout') {
+
+            include 'modules/'.$_GET['ruta'].'.php';
+
+          } else {
+            include 'modules/404.php';
+          }
+        } else {
+          include 'modules/home.php';
+        }
+      ?>
+
+      <?php include 'modules/footer.php' ?>
+
+    </div>
+    <!-- ./wrapper -->
+  <?php } else { ?>
+
+    <!-- Login. contains the login page. -->
+    <?php include 'modules/login.php' ?>
+
+  <?php } ?>
 <script src="views/js/template.js"></script>
-
 </body>
 </html>
