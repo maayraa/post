@@ -35,51 +35,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Usuario Administrador</td>
-                        <td>admin</td>
-                        <td><img src="views/img/users/default/anonymous.png" alt=""></td>
-                        <td>Administrador</td>
-                        <td><button class="btn btn-success btn-xs">Activado</button></td>
-                        <td>2018-12-11 12:05:32</td>
-                        <td>
-                            <div class="btn-group">
-                                <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Usuario Administrador</td>
-                        <td>admin</td>
-                        <td><img src="views/img/users/default/anonymous.png" alt=""></td>
-                        <td>Administrador</td>
-                        <td><button class="btn btn-success btn-xs">Activado</button></td>
-                        <td>2018-12-11 12:05:32</td>
-                        <td>
-                            <div class="btn-group">
-                                <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Usuario Administrador</td>
-                        <td>admin</td>
-                        <td><img src="views/img/users/default/anonymous.png" alt=""></td>
-                        <td>Administrador</td>
-                        <td><button class="btn btn-danger btn-xs">Desactivado</button></td>
-                        <td>2018-12-11 12:05:32</td>
-                        <td>
-                            <div class="btn-group">
-                                <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                    <?php
+                    $item = null;
+                    $value = null;
+                    $users =    UsersController::ctrUsersView($item, $value);
+                    foreach ($users as $key => $value){
+                       echo '<tr>
+                       <td>1</td>
+                       <td>'.$value['name'].'</td>
+                       <td>'.$value['user'].'</td>';
+                       
+                       if ($value['avatar'] != '') {
+                           echo '<td><img src="'.$value['avatar'].'"class="img-thumbnail</td>"';
+                       }else{
+                        echo '<td><img src="views/img/users/default/anonymous.png" </td>';
+
+                       }
+
+                       
+                       echo '<td>'.$value['profil'].'</td>
+                       <td><button class="btn btn-success btn-xs">Activado</button></td>
+                       <td>'.$value['lt_login'].'</td>
+                       <td>
+                           <div class="btn-group">
+                               <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                               <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                           </div>
+                       </td>
+                   </tr>';
+                    }
+                    ?>
+                    
+                    
                 </tbody>
             </table>
         </div>

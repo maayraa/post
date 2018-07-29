@@ -17,7 +17,7 @@
                         $_SESSION['id'] = $respuesta['id'];
                         $_SESSION['nombre'] = $respuesta['nombre'];
                         $_SESSION['user'] = $respuesta['user'];
-                        $_SESSION['Foto'] = $respuesta['Foto'];
+                        $_SESSION['avatar'] = $respuesta['avatar'];
                         $_SESSION['profile'] = $respuesta['profile'];
                         echo '<script> window.location = "home"; </script>';
                     } else {
@@ -122,5 +122,12 @@
                 }
             }
         }
+
+                /* Mostrar Usuario */
+            static public function ctrUsersView($item, $value){
+                $item = 'user';
+                $respuesta = Users::findUser($item, $value);
+                return $respuesta;
+            }
     }
     
