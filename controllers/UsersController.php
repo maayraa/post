@@ -8,6 +8,7 @@
             if (isset($_POST['ingUsuario'])) {
                 if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['ingUsuario']) &&
                     preg_match('/^[a-zA-Z0-9]+$/', $_POST['ingPassword'])) {
+                    $encrypt = crypt($_POST['ingPassword'], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
                     $item = 'user';
                     $value = $_POST['ingUsuario'];
                     $respuesta = Users::findUser($item, $value);
@@ -54,13 +55,16 @@
                                 imagecopyresized($destination, $origin, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                                 imagejpeg($destination, $route);
                             }
-
+                        
             
             $route='';
+
+            $encrypt = crypt($_POST['nuevoPassword'], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+        
             $datos = [
                 'nombre' => $_POST['nuevoNombre'],
                 'usuario' => $_POST['nuevoUsuario'],
-                'password' => $_POST['nuevoPassword'],
+                'password' => $encrypt,
                 'perfil' => $_POST['nuevoPerfil']
             ];
                     $respuesta = Users::addUser($datos);
