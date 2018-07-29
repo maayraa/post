@@ -135,9 +135,9 @@
                     </div>
                     <div class="form-group">
                         <div class="panel">Subir foto </div>
-                            <input type="file" name="nuevaFoto" id="nuevaFoto">
-                            <p class="help-block">Peso maximo de la imagen 200 MB</p>
-                            <img src="views/img/users/default/anonymous.png" class="img-thumbnail" width="70px" alt="Foto" style="background:slategrey">
+                            <input type="file" class="nuevaFoto" name="nuevaFoto" id="nuevaFoto">
+                            <p class="help-block">Peso maximo de la imagen 2MB</p>
+                            <img src="views/img/users/default/anonymous.png" class="img-thumbnail previsualizar" width="70px" alt="Foto" style="background:slategrey">
                         </div>
                     </div>
                 </div>

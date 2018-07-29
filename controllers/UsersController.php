@@ -32,30 +32,54 @@
                 if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST['nuevoNombre']) &&
                         preg_match('/^[a-zA-Z0-9]+$/', $_POST['nuevoUsuario']) &&
                         preg_match('/^[a-zA-Z0-9]+$/', $_POST['nuevoPassword'])) {
-    
-                    $datos = [
-                        'nombre' => $_POST['nuevoNombre'],
-                        'usuario' => $_POST['nuevoUsuario'],
-                        'password' => $_POST['nuevoPassword'],
-                        'perfil' => $_POST['nuevoPerfil']
-                    ];
-    
-                    $respuesta = Users::addUser($datos);
 
-                    if ($respuesta) {
-                        echo '<script>
-                            swal({
-                                type: "success",
-                                title: "¡El usuario ha sido guardado correctamente!",
-                                showConfirmButton: true,
-                                confirmButtonText: "Cerrar",
-                                closeOnConfirm: false
-                            }).then((result)=> {
-                                if (result.value) {
-                                    window.location = "users";
-                                }
-                            });
-                        </script>';
+                        /* Validar imagen */
+                        if(isset($_FILES["nuevaFoto"]["tmp_name"])){
+                            list($ancho, $alto) = getimagesize($_FILES["nuevaFoto"]["tmp_name"]);
+                            $nuevoAncho = 500;
+                            $nuevoAlto = 500;
+                            
+                            /* Creamos el directorio donde vamos a guardar la foto del usuario*/
+                            $directorio = "views/img/users/".$_POST["nuevoUsuario"];
+                             mkdir($directorio, 0755);
+
+                            /* de acuerdo al tipo de imagen aplicamos las funciones por defecto de php*/
+                            if($_FILES["nuevaFoto"]["type"] == "image/jpeg"){
+                            
+                                /* Guardamos la imagen en el directorio*/
+                                $random = mt_rand(100, 999);
+                                $route = "views/img/users/".$_POST["nuevoUsuario"]."/".$random.".jpg";
+                                $origin = imagecreatefromjpeg($_FILES["nuevaFoto"]["tmp_name"]);
+                                $destination = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+                                imagecopyresized($destination, $origin, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+                                imagejpeg($destination, $route);
+                            }
+
+            
+            $route='';
+            $datos = [
+                'nombre' => $_POST['nuevoNombre'],
+                'usuario' => $_POST['nuevoUsuario'],
+                'password' => $_POST['nuevoPassword'],
+                'perfil' => $_POST['nuevoPerfil']
+            ];
+                    $respuesta = Users::addUser($datos);
+                  if ($respuesta) {
+                echo '<script>
+                    swal({
+                        type: "success",
+                        title: "¡El usuario ha sido guardado correctamente!",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar",
+                        closeOnConfirm: false
+                    }).then((result)=> {
+                        if (result.value) {
+                            window.location = "users";
+                        }
+                    });
+                </script>';
+                        }
+
                     } else {
                         echo '<script>
                             swal({
@@ -71,6 +95,7 @@
                             });
                         </script>';
                     }
+
                 } else {
                     echo '<script>
                         swal({
@@ -89,3 +114,4 @@
             }
         }
     }
+    
