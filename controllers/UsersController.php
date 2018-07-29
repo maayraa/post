@@ -14,6 +14,11 @@
                     $respuesta = Users::findUser($item, $value);
                     if ($respuesta['pass'] == $_POST['ingPassword']) {
                         $_SESSION['iniciarSesion'] = 'ok';
+                        $_SESSION['id'] = $respuesta['id'];
+                        $_SESSION['nombre'] = $respuesta['nombre'];
+                        $_SESSION['user'] = $respuesta['user'];
+                        $_SESSION['Foto'] = $respuesta['Foto'];
+                        $_SESSION['profile'] = $respuesta['profile'];
                         echo '<script> window.location = "home"; </script>';
                     } else {
                         echo '<br><div class="alert alert-danger">Error al ingresar, intente de nuevo</div>';
