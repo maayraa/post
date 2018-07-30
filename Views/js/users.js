@@ -52,15 +52,15 @@ $('.btnEditarUsuario').click(function(){
          success:function(respuesta){
              $("#editarNombre").val(respuesta["name"]);
              $("#editarUsuario").val(respuesta["user"]);
+             $("#editarPerfil").val(respuesta["profile"]);
              $("#editarPerfil").html(respuesta["profile"]);
              $("#editarPassword").val(respuesta["pass"]);
              $("#fotoActual").html(respuesta["avatar"]);
 
-             $("#passwordActual").html(respuesta["pass"]);
              if(respuesta["avatar"] != ""){
                  $(".previsualizar").attr("src", respuesta["avatar"]);
              }
-            
+            console.log(respuesta)
          }
 
      });

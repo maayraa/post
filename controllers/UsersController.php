@@ -178,8 +178,8 @@
                     }
 
                     if ($_POST['editarPassword'] != '') {
-                        if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['nuevoPassword'])) {
-                            $encrypt = crypt($_POST['editarPassword'], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+                        if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['editarPassword'])) {
+                            $encrypt = crypt($_POST['editarPassword'], '$2a$07$usesomesillystringforsalt$');
                         } else {
                             echo '<script>
                                     swal({
