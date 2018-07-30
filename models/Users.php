@@ -8,38 +8,35 @@ class Users
     {
 		if($item != null){
 			$stmt = DbConnect::connect()->prepare(
-				'SELECT * FROM users WHERE '. $item . ' = :value'
+				"SELECT * FROM users WHERE $item = :$item"
 			);
 			
-			$stmt->bindParam(':value', $value, PDO::PARAM_STR);
+			$stmt->bindParam(':'.$item, $value, PDO::PARAM_STR);
 			$stmt->execute();
 			return $stmt->fetch();
 		}else{
 				$stmt = DbConnect::connect()->prepare(
-					'SELECT * FROM $item'
+					'SELECT * FROM users'
 				);
 				$stmt->execute();
 				return $stmt->fetchAll();
-
-
 		}
        
 		$stmt -> close();
 		$stmt = null;
-		
     }
 
     static public function addUser($datos)
 	{
 		$stmt = DbConnect::connect()->prepare(
 			'INSERT INTO users (name, user, pass, profile, avatar, status, lt_login)
-			VALUES (:name, :user, :password, :profile, :avatar, "", 1, "0000-00-00")'
+			VALUES (:name, :user, :password, :profile, :avatar, 1, "0000-00-00")'
 		);
 		$stmt->bindParam(':name', $datos['nombre'], PDO::PARAM_STR);
 		$stmt->bindParam(':user', $datos['usuario'], PDO::PARAM_STR);
 		$stmt->bindParam(':password', $datos['password'], PDO::PARAM_STR);
 		$stmt->bindParam(':profile', $datos['perfil'], PDO::PARAM_INT);
-		$stmt->bindParam(':avatar', $datos['Foto'], PDO::PARAM_INT);
+		$stmt->bindParam(':avatar', $datos['ruta'], PDO::PARAM_STR);
 
 		if ($stmt->execute()) {
 			return true;
@@ -54,13 +51,13 @@ class Users
 	static public function editUser($datos)
 	{
 		$stmt = DbConnect::connect()->prepare(
-			'UPDATE users SET nombre = :name, :user, :password = :profile, :password = :profile, avatar = :avatar WHERE users = :users'
+			'UPDATE users SET name = :name, pass = :password, profile = :profile, avatar = :avatar WHERE user = :user'
 		);
-		$stmt->bindParam(':name', $datos['nombre'], PDO::PARAM_STR);
-		$stmt->bindParam(':user', $datos['usuario'], PDO::PARAM_STR);
+		$stmt->bindParam(':name', $datos['name'], PDO::PARAM_STR);
 		$stmt->bindParam(':password', $datos['password'], PDO::PARAM_STR);
-		$stmt->bindParam(':profile', $datos['perfil'], PDO::PARAM_INT);
-		$stmt->bindParam(':avatar', $datos['Foto'], PDO::PARAM_STR);
+		$stmt->bindParam(':profile', $datos['profile'], PDO::PARAM_INT);
+		$stmt->bindParam(':avatar', $datos['ruta'], PDO::PARAM_STR);
+		$stmt->bindParam(':user', $datos['user'], PDO::PARAM_STR);
 		
 		if($stmt -> execute()){
 			return true;

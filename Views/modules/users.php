@@ -38,26 +38,28 @@
                     <?php
                     $item = null;
                     $value = null;
-                    $users =    UsersController::ctrUsersView($item, $value);
+                    $respuesta = new UsersController();
+                    $users = $respuesta->ctrUsersView($item, $value);
+                    // var_dump($users);  
                     foreach ($users as $key => $value){
                        echo '<tr>
-                       <td>1</td>
+                       <td>'.$value['id_user'].'</td>
                        <td>'.$value['name'].'</td>
                        <td>'.$value['user'].'</td>';
                        
                        if ($value['avatar'] != '') {
-                           echo '<td><img src="'.$value['avatar'].'"class="img-thumbnail</td>"';
+                           echo '<td><img src="'.$value['avatar'].'"class="img-thumbnail" width="40px"></td>"';
                        }else{
-                        echo '<td><img src="views/img/users/default/anonymous.png" </td>';
+                        echo '<td><img src="views/img/users/default/anonymous.png" width="40px"></td>';
 
                        }
 
-                       echo '<td>'.$value['profil'].'</td>
+                       echo '<td>'.$value['profile'].'</td>
                        <td><button class="btn btn-success btn-xs">Activado</button></td>
                        <td>'.$value['lt_login'].'</td>
                        <td>
                            <div class="btn-group">
-                               <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value['id'] .'" data-toggle="modal" data-target="ModalEditUser"><i class="fa fa-pencil"></i></button>
+                               <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value['id_user'] .'" data-toggle="modal" data-target="#ModalEditUser"><i class="fa fa-pencil"></i></button>
                                <button class="btn btn-danger"><i class="fa fa-times"></i></button>
                            </div>
                        </td>
@@ -163,14 +165,14 @@
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                            <input type="text" name="editarUsuario" id="editarUsuario" class="form-control input-lg">
+                            <input type="text" name="editarUsuario" id="editarUsuario" class="form-control input-lg" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            <input type="text" name="editarPassword" class="form-control input-lg" placeholder="Introducir la nueva Contraseña" required>
-                            <input type="hidden"id="passwordActual"name="passwordActual">
+                            <input type="text" name="editarPassword" class="form-control input-lg" placeholder="Introducir la nueva Contraseña">
+                            <input type="hidden" id="editarPassword" name="passwordActual" value="">
                         </div>
                     </div>
                     <div class="form-group">
@@ -186,10 +188,10 @@
                     </div>
                     <div class="form-group">
                         <div class="panel">Subir foto </div>
-                            <!-- <input type="file" class="" name="editarFoto" id="nuevaFoto"> -->
+                            <input type="file" class="" name="editarFoto" id="nuevaFoto">
                             <p class="help-block">Peso maximo de la imagen 2MB</p>
-                            <!-- <img src="views/img/users/default/anonymous.png" class="img-thumbnail previsualizar" width="70px" alt="Foto" style="background:slategrey"> -->
-                            <!-- <input type="hidden" name="fotoActual"> -->
+                            <img src="views/img/users/default/anonymous.png" class="img-thumbnail previsualizar" width="70px" alt="Foto" style="background:slategrey">
+                            <input type="hidden" name="fotoActual">
                         </div>
                     </div>
                 </div>
@@ -198,8 +200,8 @@
                   <button type="submit" class="btn btn-primary"> Actualizar Usuario</button>
                 </div>
                 <?php
-                    $createUser = new UsersController();
-                    $editUser->ctrEditUser();
+                     $editUser = new UsersController();
+                     $editUser->ctrEditUser();
                 ?> 
                
             </form>

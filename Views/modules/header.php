@@ -25,7 +25,7 @@
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <?php 
-            if($_SESSION['Foto'] != ""){
+            if($_SESSION['avatar'] != ""){
               echo '<img src="'.$_SESSION['avatar'].'" class="user-image">';
             }else{
               echo '<img src="views/img/users/default/anonymous.png" class="user-image">';
