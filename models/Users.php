@@ -47,6 +47,27 @@ class Users
 			print_r($stmt->errorInfo()); die();
 			return false;
 		}
-
+		$stmt->close();
+		$stmt = null;
+	}
+	/* Editar Usuario*/
+	static public function editUser($datos)
+	{
+		$stmt = DbConnect::connect()->prepare(
+			'UPDATE users SET nombre = :name, :user, :password = :profile, :password = :profile, avatar = :avatar WHERE users = :users'
+		);
+		$stmt->bindParam(':name', $datos['nombre'], PDO::PARAM_STR);
+		$stmt->bindParam(':user', $datos['usuario'], PDO::PARAM_STR);
+		$stmt->bindParam(':password', $datos['password'], PDO::PARAM_STR);
+		$stmt->bindParam(':profile', $datos['perfil'], PDO::PARAM_INT);
+		$stmt->bindParam(':avatar', $datos['Foto'], PDO::PARAM_STR);
+		
+		if($stmt -> execute()){
+			return true;
+		}else{
+			return false;
+		}
+		$stmt -> close();
+		$stmt = null;
 	}
 }

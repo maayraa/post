@@ -60,8 +60,18 @@
                                 imagecopyresized($destination, $origin, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                                 imagejpeg($destination, $route);
                             }
+
+                            if($_FILES["nuevaFoto"]["type"] == "image/png"){
+                            
+                                /* Guardamos la imagen en el directorio*/
+                                $random = mt_rand(100, 999);
+                                $route = "views/img/users/".$_POST["nuevoUsuario"]."/".$random.".png";
+                                $origin = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);
+                                $destination = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+                                imagecopyresized($destination, $origin, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+                                imagejpeg($destination, $route);
+                            }
                         
-            
             $route='';
 
             $encrypt = crypt($_POST['nuevoPassword'], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
@@ -123,11 +133,120 @@
             }
         }
 
-                /* Mostrar Usuario */
-            static public function ctrUsersView($item, $value){
-                $item = 'user';
-                $respuesta = Users::findUser($item, $value);
-                return $respuesta;
+            /* Mostrar Usuario */
+        static public function ctrUsersView($item, $value){
+            $item = 'user';
+            $respuesta = Users::findUser($item, $value);
+            return $respuesta;
+        }
+        
+        public function ctrEditUser(){
+            if(isset($_POST["editarUsuario"])){
+                
+                if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST['editarNombre'])){
+                    $route = $_POST['fotoActual'];
+            }else{
+                echo '<script>
+                        swal({
+                            type: "error",
+                            title: "¡El usuario no puede ir vacío o llevar caracteres especiales!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false
+                        }).then((result)=> {
+                            if (result.value) {
+                                window.location = "users";
+                            }
+                        });
+                    </script>';
             }
+
+            if(isset($_FILES["editarFoto"]["tmp_name"])){
+                list($ancho, $alto) = getimagesize($_FILES["editarFoto"]["tmp_name"]);
+                $nuevoAncho = 500;
+                $nuevoAlto = 500;
+                
+                /* Creamos el directorio donde vamos a guardar la foto del usuario*/
+                $directorio = "views/img/users/".$_POST["editarUsuario"];
+
+                if(!empty($_POST["fotoActual"])){
+                    unlink($_POST["fotoActual"]);
+
+                }else{
+                    
+                    mkdir($directorio, 0755);
+                }
+
+                /* de acuerdo al tipo de imagen aplicamos las funciones por defecto de php*/
+                if($_FILES["editarFoto"]["type"] == "image/jpeg"){
+                
+                    /* Guardamos la imagen en el directorio*/
+                    $random = mt_rand(100, 999);
+                    $route = "views/img/users/".$_POST["editarUsuario"]."/".$random.".jpg";
+                    $origin = imagecreatefromjpeg($_FILES["editarFoto"]["tmp_name"]);
+                    $destination = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+                    imagecopyresized($destination, $origin, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+                    imagejpeg($destination, $route);
+                }
+
+
+
+                
+            }
+            
+            $item = 'user';
+            if($_POST['editarPassword'] != ""){
+                if(preg_match('/^[a-zA-Z0-9]+$/', $_POST['editarPassword'])){
+                    $encrypt = crypt($_POST['editarPassword'], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+                    
+                }else{
+                    echo '<script>
+                    swal({
+                        type: "error",
+                        title: "¡El usuario no puede ir vacío o llevar caracteres especiales!",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar",
+                        closeOnConfirm: false
+                    }).then((result)=> {
+                        if (result.value) {
+                            window.location = "users";
+                        }
+                    });
+                </script>';
+
+                }
+            }else{
+                $encrypt = $passwordActual;
+            }
+              $datos = [
+                'nombre' => $_POST['editarNombre'],
+                'usuario' => $_POST['editarUsuario'],
+                'password' => $encrypt,
+                'perfil' => $_POST['editarPerfil'],
+                'Foto' => $route];
+                $respuesta = Users::findUser($item, $value);
+                if($respuesta == "ok"){
+                    echo '<script>
+                            swal({
+                                type: "error",
+                                title: "¡El usuario no se pudo guardar!",
+                                showConfirmButton: true,
+                                confirmButtonText: "Cerrar",
+                                closeOnConfirm: false
+                            }).then((result)=> {
+                                if (result.value) {
+                                    window.location = "users";
+                                }
+                            });
+                        </script>';
+                    
+                }
+
+
+        }
     }
+}
+
+
+
     
