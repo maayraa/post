@@ -55,7 +55,7 @@ $('.btnEditarUsuario').click(function(){
              $("#editarPerfil").val(respuesta["profile"]);
              $("#editarPerfil").html(respuesta["profile"]);
              $("#editarPassword").val(respuesta["pass"]);
-             $("#fotoActual").html(respuesta["avatar"]);
+             $("#fotoActual").val(respuesta["avatar"]);
 
              if(respuesta["avatar"] != ""){
                  $(".previsualizar").attr("src", respuesta["avatar"]);

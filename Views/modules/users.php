@@ -28,8 +28,8 @@
                         <th>Nombre</th>
                         <th>Usuario</th>
                         <th>Foto</th>
-                        <th>Perfil</th>
                         <th>Estado</th>
+                        <th>Perfil</th>
                         <th>Ultimo login</th>
                         <th>Acciones</th>
                     </tr>
@@ -195,7 +195,7 @@
                             <input type="file" class="nuevaFoto" name="editarFoto" id="nuevaFoto">
                             <p class="help-block">Peso maximo de la imagen 2MB</p>
                             <img src="views/img/users/default/anonymous.png" class="img-thumbnail previsualizar" width="70px" alt="Foto" style="background:slategrey">
-                            <input type="hidden" name="fotoActual">
+                            <input type="hidden" name="fotoActual" id="fotoActual">
                         </div>
                     </div>
                 </div>

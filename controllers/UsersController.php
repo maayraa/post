@@ -8,18 +8,35 @@
             if (isset($_POST['ingUsuario'])) {
                 if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['ingUsuario']) &&
                     preg_match('/^[a-zA-Z0-9]+$/', $_POST['ingPassword'])) {
-                    $encrypt = crypt($_POST['ingPassword'], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+                    $encrypt = crypt($_POST['ingPassword'], '$2a$07$usesomesillystringforsalt$');
                     $item = 'user';
                     $value = $_POST['ingUsuario'];
                     $respuesta = Users::findUser($item, $value);
-                    if ($respuesta['pass'] == $_POST['ingPassword']) {
+                    if ($respuesta['pass'] == $encrypt) {
                         $_SESSION['iniciarSesion'] = 'ok';
-                        $_SESSION['id'] = $respuesta['id'];
+                        $_SESSION['id'] = $respuesta['id_user'];
                         $_SESSION['nombre'] = $respuesta['name'];
                         $_SESSION['user'] = $respuesta['user'];
                         $_SESSION['avatar'] = $respuesta['avatar'];
                         $_SESSION['profile'] = $respuesta['profile'];
-                        echo '<script> window.location = "home"; </script>';
+                        /** 
+							 * Registrar ultomo login */
+ 							//Zona Horaria
+							date_default_timezone_set('America/Monterrey');
+                            // Fecha y hora
+                           $fecha = date('Y-m-d');
+                           $hora = date('H:i:s');
+                           $fechaActual = $fecha.' '.$hora;
+                            $item1 = 'lt_login';
+                           $value1 = $fechaActual;
+                           $item2 = 'id_user';
+                           $value2 = $respuesta['id_user'];
+                            //Actualizar ultimo login
+                           $ultimoLogin = Users::ActUser($item1, $value1, $item2, $value2);
+                           
+                           if ($ultimoLogin) {
+                               echo '<script> window.location = "home"; </script>';
+                           }
                     } else {
                         echo '<br><div class="alert alert-danger">Error al ingresar, intente de nuevo</div>';
                     }
@@ -28,7 +45,7 @@
         }
 
         /** 
-         * CREAR USUARIO
+         * Crear Usuario
         */
         public function ctrCreateUser()
         {
@@ -74,7 +91,7 @@
                             imagepng($destination, $route);
                         }
                     }
-                    $encrypt = crypt($_POST['nuevoPassword'], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+                    $encrypt = crypt($_POST['nuevoPassword'], '$2a$07$usesomesillystringforsalt$');
         
                     $datos = [
                         'nombre' => $_POST['nuevoNombre'],
@@ -258,36 +275,36 @@
 /** 
 		 * Eliminar el usuario
 		*/
-		public function ctrDeleteUser()
-		{
-			if (isset($_GET['idUser'])) {
-				$datos = $_GET['idUser'];
-				
-				/** 
-				 * ELIMINAR LA FOTO SI EXISTE EN LA BASE DE DATOS
-				*/
-				//if ($_GET['fotoUser'] != '') {
-				//	unlink($_GET['fotoUser']);
-				//	rmdir('views/img/users/'.$_GET['user']);
-				//}
-				//$respuesta = Users::deleteUser($datos);
-				//if ($respuesta) {
-				//	echo ' <script>
-				//		swal({
-    			//			type: "success",
-    			//			title: "¡El usuario ha sido borrado correctamente!",
-    			//			showConfirmButton: true,
-    			//			confirmButtonText: "Cerrar",
-    			//			closeOnConfirm: false
-    			//		}).then((result)=> {
-    			//			if (result.value) {
-    			//				window.location = "users";
-    			//			}
-    			//		});
-				//	</script>';
-				//}
-			}
-		}
+		//public function ctrDeleteUser()
+		//{
+		//	if (isset($_GET['idUser'])) {
+		//		$datos = $_GET['idUser'];
+		//		
+		//		/** 
+		//		 * ELIMINAR LA FOTO SI EXISTE EN LA BASE DE DATOS
+		//		*/
+		//		if ($_GET['fotoUser'] != '') {
+		//			unlink($_GET['fotoUser']);
+		//			rmdir('views/img/users/'.$_GET['user']);
+		//		}
+		//		$respuesta = Users::deleteUser($datos);
+		//		if ($respuesta) {
+		//			echo ' <script>
+		//				swal({
+    	//					type: "success",
+    	//					title: "¡El usuario ha sido borrado correctamente!",
+    	//					showConfirmButton: true,
+    	//					confirmButtonText: "Cerrar",
+    	//					closeOnConfirm: false
+    	//				}).then((result)=> {
+    	//					if (result.value) {
+    	//						window.location = "users";
+    	//					}
+    	//				});
+		//			</script>';
+		//		}
+		//	}
+		//}
     }
 
 

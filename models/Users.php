@@ -69,13 +69,14 @@ class Users
 	}
 
 	/** 
-         * ACTUALIZAR ESTADO DEL USUARIO
+         * Actiualizar Usuario
         */
         static public function ActUser($item1, $value1, $item2, $value2)
         {
-            $stmt = DbConnect::connect()->prepare("UPDATE users SET $item1 = :status WHERE $item2 = :id_user");
-             $stmt->bindParam(':status', $value1, PDO::PARAM_INT);
-            $stmt->bindParam(':id_user', $value2, PDO::PARAM_INT);
+			$stmt = DbConnect::connect()->prepare("UPDATE users SET $item1 = :value WHERE $item2 = :id_user");
+			
+             $stmt->bindParam(':value', $value1, PDO::PARAM_STR);
+             $stmt->bindParam(':id_user', $value2, PDO::PARAM_STR);
              if ($stmt->execute()) {
 	    		return true;
 	    	} else {
