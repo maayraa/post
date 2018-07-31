@@ -60,8 +60,37 @@ $('.btnEditarUsuario').click(function(){
              if(respuesta["avatar"] != ""){
                  $(".previsualizar").attr("src", respuesta["avatar"]);
              }
-            console.log(respuesta)
+        }
+    });
+})
+  /** 
+ * ACTIVAR USUARIO
+*/
+ $('.btnActivar').click(function() {
+    var idUser = $(this).attr('idUsuario');
+    var statusUser = $(this).attr('status');
+     var datos = new FormData();
+     datos.append('activarId', idUser)
+    datos.append('activarUsuario', statusUser)
+     $.ajax({
+        url: 'ajax/users.ajax.php',
+        method: 'POST',
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(respuesta) {
          }
-
-     });
+    })
+     if (statusUser == 0) {
+        $(this).removeClass('btn-success')
+        $(this).addClass('btn-danger')
+        $(this).html('Desactivado')
+        $(this).attr('status', 1)
+    } else {
+        $(this).removeClass('btn-danger')
+        $(this).addClass('btn-success')
+        $(this).html('Activado')
+        $(this).attr('status', 0)
+    }
 })

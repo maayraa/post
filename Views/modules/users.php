@@ -53,9 +53,13 @@
                         echo '<td><img src="views/img/users/default/anonymous.png" width="40px"></td>';
 
                        }
+                       if ($value['status'] != 0) {
+                        echo '<td><button class="btn btn-success btn-xs btnActivar" idUsuario="'.$value['id_user'].'" status="0">Activado</button></td>';
+                    } else {
+                        echo '<td><button class="btn btn-danger btn-xs btnActivar" idUsuario="'.$value['id_user'].'" status="1">Desactivado</button></td>';
+                    }
 
                        echo '<td>'.$value['profile'].'</td>
-                       <td><button class="btn btn-success btn-xs">Activado</button></td>
                        <td>'.$value['lt_login'].'</td>
                        <td>
                            <div class="btn-group">

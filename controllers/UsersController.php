@@ -255,7 +255,46 @@
                 }
             }
         }
-}
+/** 
+		 * Eliminar el usuario
+		*/
+		public function ctrDeleteUser()
+		{
+			if (isset($_GET['idUser'])) {
+				$datos = $_GET['idUser'];
+				
+				/** 
+				 * ELIMINAR LA FOTO SI EXISTE EN LA BASE DE DATOS
+				*/
+				//if ($_GET['fotoUser'] != '') {
+				//	unlink($_GET['fotoUser']);
+				//	rmdir('views/img/users/'.$_GET['user']);
+				//}
+				//$respuesta = Users::deleteUser($datos);
+				//if ($respuesta) {
+				//	echo ' <script>
+				//		swal({
+    			//			type: "success",
+    			//			title: "¡El usuario ha sido borrado correctamente!",
+    			//			showConfirmButton: true,
+    			//			confirmButtonText: "Cerrar",
+    			//			closeOnConfirm: false
+    			//		}).then((result)=> {
+    			//			if (result.value) {
+    			//				window.location = "users";
+    			//			}
+    			//		});
+				//	</script>';
+				//}
+			}
+		}
+    }
+
+
+
+
+
+
 
 
 
