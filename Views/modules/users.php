@@ -64,7 +64,7 @@
                        <td>
                            <div class="btn-group">
                                <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value['id_user'] .'" data-toggle="modal" data-target="#ModalEditUser"><i class="fa fa-pencil"></i></button>
-                               <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                               <button class="btn btn-danger btnDeleteUser" idUsuario="'.$value['id_user'].'" usuario="'.$value['name'].'"fotoUsuario="'.$value['avatar'].'"><i class="fa fa-times"></i></button>
                            </div>
                        </td>
                    </tr>';
@@ -212,3 +212,8 @@
         </div>
     </div>
 </div>
+
+<?php
+    $deleteUser = new UsersController();
+    $deleteUser->ctrDeleteUser();
+?>

@@ -94,3 +94,24 @@ $('.btnEditarUsuario').click(function(){
         $(this).attr('status', 0)
     }
 })
+
+$('.btnDeleteUser').click(function(){
+    var idUser = $(this).attr('idUsuario');
+    var fotouser = $(this).attr('fotoUsuario');
+    var user = $(this).attr('usuario');
+
+    swal({
+        title: '¿Estas seguro de eliminar este usuario?',
+        type: 'warning',
+        showCancelButton:true,
+        confirmButtonColor:'#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText:'cancelar',
+        confirmButtonText:'Si, estoy seguro de borrar este usuario'
+    }).then((result) => {
+        if(result.value){
+            window.location = 'index.php?ruta=users&idUser='+idUser+'&fotoUser='+fotouser+'&user='+user
+        }
+    })
+})
+    

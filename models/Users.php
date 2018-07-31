@@ -85,5 +85,23 @@ class Users
             }
              $stmt->close();
              $stmt = null;
-        }
-    }
+		}
+		
+		/* Eliminar el Usuario */
+		static public function deleteUser($datos){
+			$stmt = Dbconnect::connect()->prepare(
+				'DELETE FROM users WHERE id_user = :id_user'
+			);
+
+			$stmt->bindParam(':id_user', $datos, PDO::PARAM_INT);
+			
+			if($stmt->execute()){
+				return true;
+			}else{
+				print_r($stmt->errorInfo()); die();
+				return false;
+			}
+			$stmt->close();
+			$stmt = null;
+		}
+	}
