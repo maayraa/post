@@ -15,4 +15,23 @@ class Categories{
         $stmt->close();
         $stmt = null;
     }
+
+    /* Mostrar Categorias */
+
+    static public function mdMostrarCategoria($table, $item, $value){
+        if($item != null){
+            $stmt = DBconnect::connect()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
+            $stmt -> bindParam(":".$item, $value, PDO::PARAM_STR);
+            $stmt -> execute();
+            return $stmt -> fetch();
+
+        }else{
+            $stmt = DBconnect::connect()->prepare("SELECT * FROM $table");
+            $stmt->execute();
+            return $stmt -> fetchAll();
+        }
+        
+        $stmt->close();
+        $stmt = null;
+    }
 }

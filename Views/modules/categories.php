@@ -30,38 +30,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Equipos electromecanicos</td>
-                        <td>
-        <div class="btn-group">
-            <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value['id_user'] .'" data-toggle="modal" data-target="#ModalEditUser"><i class="fa fa-pencil"></i></button>
-            <button class="btn btn-danger btnDeleteUser" idUsuario="'.$value['id_user'].'" usuario="'.$value['name'].'"fotoUsuario="'.$value['avatar'].'"><i class="fa fa-times"></i></button>
-        </div>
-                       </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Equipos electromecanicos</td>
-                        <td>
-                         <div class="btn-group">
-                             <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value['id_user'] .'" data-toggle="modal" data-target="#ModalEditUser"><i class="fa fa-pencil"></i></button>
-                             <button class="btn btn-danger btnDeleteUser" idUsuario="'.$value['id_user'].'" usuario="'.$value['name'].'"fotoUsuario="'.$value['avatar'].'"><i class="fa fa-times"></i></button>
-                         </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Equipos electromecanicos</td>
-                        <td>
-                        <div class="btn-group">
-                             <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value['id_user'] .'" data-toggle="modal" data-target="#ModalEditUser"><i class="fa fa-pencil"></i></button>
-                             <button class="btn btn-danger btnDeleteUser" idUsuario="'.$value['id_user'].'" usuario="'.$value['name'].'"fotoUsuario="'.$value['avatar'].'"><i class="fa fa-times"></i></button>
-                        </div>
-                        </td>
-                    </tr>
-                
+
+                <?php
+                    $item = null;
+                    $value = null;
+                    $categorias = CategoriesController::ctrViewCategory($item, $value);
                     
+                    foreach($categorias as $key => $value){
+                        echo '</tr>
+                        <tr>
+                            <td>'.($key+1).'</td>
+                            <td class="text-uppercase">'.$value["category"].'</td>
+                            <td>
+                             <div class="btn-group">
+                                 <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                                 <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                             </div>
+                            </td>
+                        </tr>
+                        <tr>';
+                    }
+                ?>
+
                 </tbody>
             </table>
         </div>

@@ -43,4 +43,13 @@ class CategoriesController{
             }
         }
     }
+
+    /* Mostrar Categorias */
+
+    static public function ctrViewCategory($item, $value){
+        $table = "categories";
+        $respuesta = Categories::mdMostrarCategoria($table, $item, $value);
+        return $respuesta;
+
+    }
 }
