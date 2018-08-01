@@ -21,7 +21,7 @@
                         $_SESSION['profile'] = $respuesta['profile'];
                         /** 
 							 * Registrar ultomo login */
- 							//Zona Horaria
+ 							
 							date_default_timezone_set('America/Monterrey');
                             // Fecha y hora
                            $fecha = date('Y-m-d');
