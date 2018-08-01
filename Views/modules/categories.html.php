@@ -73,7 +73,7 @@
     <!-- /.content -->
 </div>
 
-<!-- Modal Agregar Categoria -->
+<!-- Modal -->
 <div id="ModalAgregarCategoria" class="modal fade" role="dialog">
     <div class="modal-dialog">
   
@@ -89,20 +89,16 @@
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" name="nuevaCategoria" class="form-control input-lg" placeholder="Ingresar categoria" required>
+                            <input type="text" name="nuevoCategoria" class="form-control input-lg" placeholder="Ingresar categoria" required>
                         </div>
                     </div>
                 </div>
             </div>
-<!-- Pie del modal -->
+                
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
                   <button type="submit" class="btn btn-primary"> Guardar Categoria</button>
                 </div>
-                <?php
-                    $crearCategoria = new CategoriesController();
-                    $crearCategoria-> ctrCreateCategory();
-                ?>
                
             </form>
         </div>
