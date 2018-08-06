@@ -12,7 +12,7 @@
                     $item = 'user';
                     $value = $_POST['ingUsuario'];
                     $respuesta = Users::findUser($item, $value);
-                    if ($respuesta['pass'] == $encrypt) {
+                    if ($respuesta['pass'] == $encrypt ) {
                         $_SESSION['iniciarSesion'] = 'ok';
                         $_SESSION['id'] = $respuesta['id_user'];
                         $_SESSION['nombre'] = $respuesta['name'];
