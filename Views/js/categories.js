@@ -21,3 +21,24 @@ $(".btnEditarCategoria").click(function(){
         }
     })
 })
+
+/* Eliminar Categoria */
+$(".btnEliminarCategoria").click(function(){
+    var idCategory = $(this).attr("idCategory");
+    swal({
+        title: '¿Estas seguro de borrar esta categoria?',
+        text: 'Puede cancelar esta accion',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si, deseo borrar esta categoria!!'
+    }).then((result)=>{
+        if(result.value){
+            window.location = "index.php?ruta=categories&idCategory="+idCategory;
+        }
+
+    })
+})
+

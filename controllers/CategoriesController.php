@@ -95,4 +95,28 @@ class CategoriesController{
         }
     }
 
+    /* Borrar Categoria */
+    static public function ctrDeleteCategory(){
+        if(isset($_GET['idCategory'])){
+            $table = "categories";
+            $datos = $_GET['idCategory'];
+            $respuesta = Categories::mdDeleteCategory($table, $datos);
+            if($respuesta == 'ok'){
+                echo '<script>
+                swal({
+                    type: "success",
+                    title: "¡La categoria se borro correctamente",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar",
+                    closeOnConfirm: false
+                    }).then((result)=> {
+                    if (result.value) {
+                    window.location = "categories";
+                    }
+                    });
+            </script>';
+
+            }
+        }
+    }
 }

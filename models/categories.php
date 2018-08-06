@@ -50,5 +50,17 @@ class Categories{
             $stmt = null;
         }
     
-
+        /* Borrar Categoria */
+        static public function mdDeleteCategory($table, $datos){
+            $stmt = DBconnect::connect()->prepare("DELETE FROM $table WHERE id =:id");
+            $stmt->bindParam(":id", $datos, PDO::PARAM_INT);
+            if($stmt->execute()){
+                return "ok";
+            }else{
+                return "error";
+            }
+    
+            $stmt->close();
+            $stmt = null;
+        }
 }

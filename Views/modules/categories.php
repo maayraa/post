@@ -44,7 +44,7 @@
                             <td>
                              <div class="btn-group">
                                  <button class="btn btn-warning btnEditarCategoria" idCategory="'.$value["id"].'" data-toggle="modal" data-target="#modalEditarCategoria"><i class="fa fa-pencil"></i></button>
-                                 <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                 <button class="btn btn-danger btnEliminarCategoria" idCategory="'.$value["id"].'"><i class="fa fa-times"></i></button>
                              </div>
                             </td>
                         </tr>';
@@ -127,7 +127,7 @@
                 </div>
                  <?php
                     $editCategory = new CategoriesController();
-                    $editCategory -> ctreditCategory();
+                    $editCategory -> ctrEditCategory();
                  ?>
                
             </form>
@@ -135,4 +135,8 @@
     </div>
 </div>
 
+<?php
+     $deleteCategory = new CategoriesController();
+     $deleteCategory -> ctrDeleteCategory();
+?>
  
