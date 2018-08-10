@@ -25,9 +25,10 @@
   <link rel="stylesheet" href="views/dist/css/skins/_all-skins.min.css">
   <!-- dataTable -->
   <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/dataTables.bootstrap.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="views/plugins/iCheck/all.css">
   <!-- responsive style -->
   <link rel="stylesheet" href="views/bower_components/Responsive/css/responsive.bootstrap4.min.css">
-
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <!--DataTables-->
@@ -51,6 +52,8 @@
   <!-- <script src="views/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script> -->
   <!-- sweetAlert2 -->
   <script src="views/plugins/sweetalert2/sweetalert2.all.js"></script>
+  <!-- iCheck 1.0.1 -->
+  <script src="views/plugins/iCheck/icheck.min.js"></script>
 
   <!-- responsive js -->
   <script src="views/bower_components/Responsive/js/dataTables.responsive.js"></script>
