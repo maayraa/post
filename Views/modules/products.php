@@ -37,62 +37,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><img src="views/img/products/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-                    <td>0001</td>
-                    <td>Lorem ipsum dolor sit amet</td>
-                    <td>Lorem ipsum</td>
-                    <td>20</td>
-                    <td>$ 5.00</td>
-                    <td>$ 10.00</td>
-                    <td>2017-12-11 12:05:32</td>
-                    <td>
-                    
-                    <div class="btn-group">
-                        <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value['id_user'] .'" data-toggle="modal" data-target="#ModalEditUser"><i class="fa fa-pencil"></i></button>
-                        <button class="btn btn-danger btnDeleteUser" idUsuario="'.$value['id_user'].'" usuario="'.$value['name'].'"fotoUsuario="'.$value['avatar'].'"><i class="fa fa-times"></i></button>
-                    </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td><img src="views/img/products/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-                    <td>0001</td>
-                    <td>Lorem ipsum dolor sit amet</td>
-                    <td>Lorem ipsum</td>
-                    <td>20</td>
-                    <td>$ 5.00</td>
-                    <td>$ 10.00</td>
-                    <td>2017-12-11 12:05:32</td>
-                    <td>
-                    
-                    <div class="btn-group">
-                        <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value['id_user'] .'" data-toggle="modal" data-target="#ModalEditUser"><i class="fa fa-pencil"></i></button>
-                        <button class="btn btn-danger btnDeleteUser" idUsuario="'.$value['id_user'].'" usuario="'.$value['name'].'"fotoUsuario="'.$value['avatar'].'"><i class="fa fa-times"></i></button>
-                    </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td><img src="views/img/products/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-                    <td>0001</td>
-                    <td>Lorem ipsum dolor sit amet</td>
-                    <td>Lorem ipsum</td>
-                    <td>20</td>
-                    <td>$ 5.00</td>
-                    <td>$ 10.00</td>
-                    <td>2017-12-11 12:05:32</td>
-                    <td>
-                    
-                    <div class="btn-group">
-                        <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value['id_user'] .'" data-toggle="modal" data-target="#ModalEditUser"><i class="fa fa-pencil"></i></button>
-                        <button class="btn btn-danger btnDeleteUser" idUsuario="'.$value['id_user'].'" usuario="'.$value['name'].'"fotoUsuario="'.$value['avatar'].'"><i class="fa fa-times"></i></button>
-                    </div>
+                    <?php 
+                        $item = null;
+                        $valor = null;
+                        $products = ProductsController::ctrViewProducts($item, $valor);
+                        foreach($products as $key => $valor){
+                            echo ' <tr>
+                                <td>'.($key+1).'</td>
+                                <td><img src="views/img/products/default/anonymous.png" class="img-thumbnail" width="40px"></td>
+                                <td>'.$valor["code"].'</td>
+                                <td>'.$valor["description"].'</td>';
 
-                    </td>
+                                $item = "id";
+                                $value = $valor["id"];
 
-                </tr>
+                                $categories = CategoriesController::ctrViewCategory($item, $value);
+
+                                echo '<td>'.$categories["category"].'</td>
+                                <td>'.$valor["stock"].'</td>
+                                <td>$ '.$valor["purchase_p"].'</td>
+                                <td>$ '.$valor["sale_p"].'</td>
+                                <td>'.$valor["date"].'</td>
+                                <td>
+                                
+                                <div class="btn-group">
+                                    <button class="btn btn-warning btnEditarUsuario" " data-toggle="modal" data-target="#ModalEditUser"><i class="fa fa-pencil"></i></button>
+                                    <button class="btn btn-danger btnDeleteUser" ><i class="fa fa-times"></i></button>
+                                </div>
+                                </td>
+                            </tr>';
+                        }
+                    ?>
 
                 </tbody>
 
