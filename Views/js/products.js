@@ -28,11 +28,38 @@ $('.tablaProductos tbody').on( 'click', 'button', function () {
 } );
 
 /* Funcion para cargar las imagenes*/
-setTimeout(function(){
+function loadImages(){
     var imgTabla= $(".imgTabla");
     for(var i =0; i < imgTabla.length; i++){
         var data = table.row($(imgTabla[i]).parents("tr")).data();
         $(imgTabla[i]).attr("src", data[1]);
     }
+}
+ /* Cargamos imagenes cundo entramos a la pagina por primera vez*/
+setTimeout(function(){
+    loadImages();
+/* Cargamos imagenes cundo interactuamos con el paginador */
 
 }, 300)
+
+$(".dataTables_paginate").click(function(){
+    loadImages();
+})
+
+/* Cargamos imagenes cundo interactuamos con el buscador */
+$("input[aria-controls='DataTables_Table_0']").focus(function(){
+    $(document).keyup(function(event){
+        event.preventDefault();
+        loadImages();
+    })
+})
+
+/* Cargamos imagenes cundo interactuamos con el filtro de cantidad */
+$("select[name='DataTables_Table_0_length']").change(function(){
+    loadImages();
+})
+
+/* Cargamos imagenes cundo interactuamos con el filtro de ordenar */
+$(".sorting").click(function(){
+    loadImages();
+})
