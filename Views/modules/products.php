@@ -21,10 +21,10 @@
             </button>
         </div>
         <div class="box-body">
-            <table class="table table-bordered table-striped dt-responsive dtable" width="100%">
+            <table class="table table-bordered table-striped dt-responsive tablaProductos">
                 <thead>
                     <tr>
-                        <th style="width: 10px">#</th>
+                       <th style="width: 10px">#</th>
                         <th>Imagen</th>
                         <th>Codigo</th>
                         <th>Descripcion</th>
@@ -33,44 +33,11 @@
                         <th>Precio de compra</th>
                         <th>Precio de venta</th>
                         <th>Agregado</th>
-                        <th>Acciones</th>
+                        <th>Acciones</th> 
+                        
                     </tr>
                 </thead>
-                <tbody>
-                    <?php 
-                        $item = null;
-                        $valor = null;
-                        $products = ProductsController::ctrViewProducts($item, $valor);
-                        foreach($products as $key => $valor){
-                            echo ' <tr>
-                                <td>'.($key+1).'</td>
-                                <td><img src="views/img/products/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-                                <td>'.$valor["code"].'</td>
-                                <td>'.$valor["description"].'</td>';
-
-                                $item = "id";
-                                $value = $valor["id"];
-
-                                $categories = CategoriesController::ctrViewCategory($item, $value);
-
-                                echo '<td>'.$categories["category"].'</td>
-                                <td>'.$valor["stock"].'</td>
-                                <td>$ '.$valor["purchase_p"].'</td>
-                                <td>$ '.$valor["sale_p"].'</td>
-                                <td>'.$valor["date"].'</td>
-                                <td>
-                                
-                                <div class="btn-group">
-                                    <button class="btn btn-warning btnEditarUsuario" " data-toggle="modal" data-target="#ModalEditUser"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-danger btnDeleteUser" ><i class="fa fa-times"></i></button>
-                                </div>
-                                </td>
-                            </tr>';
-                        }
-                    ?>
-
-                </tbody>
-
+                
             </table>
 
         </div>
