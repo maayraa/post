@@ -61,25 +61,30 @@
                     <div class="box-body">
                     <div class="form-group">
                         <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                            <select name="nuevaCategoria" id="nuevaCategoria" class="form-control input-lg" required>
+                                <option value="">Seleccionar Categoria</option>
+                                <?php
+                                $item = null;
+                                $value = null;
+                                $categories = CategoriesController::ctrViewCategory($item, $value);
+                                    foreach ($categories as $key => $value) {
+                                        echo '<option value="'.$value["id"].'">'.$value["category"].'</option>';
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-code"></i></span>
-                            <input type="text" name="nuevoCodigo" class="form-control input-lg" placeholder="Introducir Codigo" required>
+                            <input type="text" name="nuevoCodigo" id="nuevoCodigo" class="form-control input-lg" placeholder="Introducir Codigo" readonly required>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span>
                             <input type="text" name="nuevaDescripcion" class="form-control input-lg" placeholder="Introducir Descripcion" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                            <select name="nuevaCategoria" class="form-control input-lg">
-                                <option value="">Seleccionar Categoria</option>
-                                <option value="Taladros">Taladros</option>
-                                <option value="Andamios">Andamios</option>
-                                <option value="Equipos para construccion">Equipos para Construccion</option>
-                            </select>
                         </div>
                     </div>
                     <div class="form-group">

@@ -6,7 +6,7 @@ class Products{
     /* Mostrar Productos */
     static public function mdViewProducts($table, $item, $value){
         if($item != null){
-            $stmt = DBconnect::connect()->prepare("SELECT * FROM $table WHERE $item = :$item");
+            $stmt = DBconnect::connect()->prepare("SELECT * FROM $table WHERE $item = :$item ORDER BY id_p DESC");
             $stmt -> bindParam(":".$item, $value, PDO::PARAM_STR);
             $stmt -> execute();
             return $stmt -> fetch();
