@@ -97,20 +97,20 @@
                     <div class="col-xs-6">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
-                            <input type="number" name="nuevoPrecioCompra" class="form-control input-lg"  min="0" placeholder="Precio de Compra" required>
+                            <input type="number" name="nuevoPrecioCompra" id="nuevoPrecioCompra" class="form-control input-lg"  min="0" placeholder="Precio de Compra" required>
                         </div>
                     </div>
                         <div class="col-xs-6">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-arrow-down"></i></span>
-                                <input type="number" name="nuevoPrecioVenta" class="form-control input-lg" min="0" placeholder="Precio de venta" required>
+                                <input type="number" name="nuevoPrecioVenta" id="nuevoPrecioVenta" class="form-control input-lg" min="0" placeholder="Precio de venta" required>
                             </div>
                             <br>
                             Checkbox para Porcentaje
                             <div class="col-xs-6">
                                 <div class="form-group">
                                     <label>
-                                        <input type="checkbox" class="minimal pocentaje" checked>
+                                        <input type="checkbox" class="minimal porcentaje" checked>
                                         Utilizar Porcentaje
                                     </label>
                                 </div>
@@ -136,6 +136,11 @@
                   <button type="submit" class="btn btn-primary"> Guardar Producto</button>
                 </div>
             </form>
+            <?php
+                $CreateProduct = new ProductsController();
+                $CreateProduct -> ctrCreateProduct();
+            ?>
+
         </div>
     </div>
 </div>

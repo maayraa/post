@@ -8,7 +8,7 @@ require_once "../models/categories.php";
 
 class TableProducts{
     /* Mostrar tabla producto */
-    public function mdViewTable(){
+    public function ViewTable(){
         $item = null;
         $value = null;
 
@@ -33,6 +33,10 @@ class TableProducts{
                   "'.$products[$i]["id_p"].'"
                 ],';
                }
+               
+               $item = "id";
+               $value = $products[count($products)-1]["id"];
+               $categories = CategoriesController::ctrViewCategory($item, $value);
               
               echo '[
                     "'.count($products).'",
@@ -55,6 +59,6 @@ class TableProducts{
 
 /* Activar tabla de productso*/
 $activar = new TableProducts();
-$activar -> mdViewTable();
+$activar -> ViewTable();
 
 
