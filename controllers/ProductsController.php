@@ -15,7 +15,41 @@ class ProductsController{
                 preg_match("/^[0-9]+$/", $_POST["nuevoPrecioCompra"])&&
                 preg_match("/^[0-9]+$/", $_POST["nuevoPrecioVenta"])){
 
+                    /* Validar Imagen */
                 $ruta = "views/img/products/default/anonymous.png";
+                if(isset($_FILES["nuevaImagen"]["tmp_name"])){
+                    list($ancho, $alto) = getimagesize($_FILES["nuevaImagen"]["tmp_name"]);
+                    $nuevoAncho = 500;
+                    $nuevoAlto = 500;
+                        
+                    /* Creamos el directorio donde vamos a guardar la foto del usuario*/
+                    $directorio = "views/img/products/".$_POST["nuevoCodigo"];
+                    mkdir($directorio, 0755);
+
+                    /* de acuerdo al tipo de imagen aplicamos las funciones por defecto de php*/
+                    if($_FILES["nuevaImagen"]["type"] == "image/jpeg"){
+                    
+                        /* Guardamos la imagen en el directorio*/
+                        $random = mt_rand(100, 999);
+                        $ruta = "views/img/products/".$_POST["nuevoCodigo"]."/".$random.".jpg";
+                        $origin = imagecreatefromjpeg($_FILES["nuevaImagen"]["tmp_name"]);
+                        $destination = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+                        imagecopyresized($destination, $origin, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+                        imagejpeg($destination, $ruta);
+                    }
+
+                    if($_FILES["nuevaImagen"]["type"] == "image/png"){
+                    
+                        /* Guardamos la imagen en el directorio*/
+                        $random = mt_rand(100, 999);
+                        $ruta = "views/img/products/".$_POST["nuevoCodigo"]."/".$random.".png";
+                        $origin = imagecreatefrompng($_FILES["nuevaImagen"]["tmp_name"]);
+                        $destination = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+                        imagecopyresized($destination, $origin, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+                        imagepng($destination, $ruta);
+                    }
+                }
+
                 $table = "products";
                 $datos = array("id" => $_POST["nuevaCategoria"],
                                "code" => $_POST["nuevoCodigo"],
