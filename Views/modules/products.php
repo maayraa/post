@@ -62,7 +62,7 @@
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                            <select name="nuevaCategoria" id="nuevaCategoria" class="form-control input-lg" required>
+                            <select class="form-control input-lg" name="nuevaCategoria" id="nuevaCategoria"  required>
                                 <option value="">Seleccionar Categoria</option>
                                 <?php
                                 $item = null;
@@ -141,6 +141,96 @@
                 $CreateProduct -> ctrCreateProduct();
             ?>
 
+        </div>
+    </div>
+</div>
+
+<!-- Modal Editar Producto -->
+<div id="ModalEditarProducto" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form rol="form" method="post" enctype="multipart/form-data">
+                <div class="modal-header" style="background-color: #3c8dbc; color: white ">
+                    <button type="button" class="close" data-dismiss="modal" >&times;</button>
+                    <h4 class="modal-title">Editar Producto</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                            <select name="editarCategoria" class="form-control input-lg" readonly required>
+                                <option id="editarCategoria"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                            <input type="text" name="editarCodigo" id="editarCodigo" class="form-control input-lg" readonly required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span>
+                            <input type="text" name="editarDescripcion" id="editarDescripcion" class="form-control input-lg" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                            <input type="number" name="editarStock" id="editarStock" class="form-control input-lg"  min="0" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                    <div class="col-xs-6">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
+                            <input type="number" name="editarPrecioCompra" id="editarPrecioCompra" class="form-control input-lg"  min="0" required>
+                        </div>
+                    </div>
+                        <div class="col-xs-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-arrow-down"></i></span>
+                                <input type="number" name="editarPrecioVenta" id="editarPrecioVenta" class="form-control input-lg" min="0" required readonly>
+                            </div>
+                            <br>
+                            Checkbox para Porcentaje
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" class="minimal porcentaje" checked>
+                                        Utilizar Porcentaje
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6" style="padding:0">
+                                <div class="input-group">
+                                    <input type="number" class="form-control input-lg nuevoPorcentaje" min="0" value="40" required>
+                                    <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="panel">Subir imagen </div>
+                            <input type="file" class="nuevaImagen" name="editarImagen">
+                            <p class="help-block">Peso maximo de la imagen 2MB</p>
+                            <img src="views/img/products/default/anonymous.png" class="img-thumbnail previsualizar" width="70px" alt="Foto" style="background:slategrey">
+                            <input type="hidden" name="imagenActual" id="imagenActual">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                  <button type="submit" class="btn btn-primary"> Guardar Cambios</button>
+                </div>
+            </form>
+            <?php
+                $editProduct = new ProductsController();
+                $editProduct -> ctrEditProduct();
+
+            ?>
         </div>
     </div>
 </div>

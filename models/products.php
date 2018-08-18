@@ -41,4 +41,25 @@ class Products{
         $stmt->close();
         $stmt = null;
     }
+
+     /* Editar productos */
+     static public function mdEditProduct($table, $datos){
+        $stmt = DBconnect::connect()->prepare("UPDATE $table SET id = :id, description = :description, image = :image, stock = :stock, purchase_p = :purchase_p, sale_p = :sale_p WHERE code = :code"); 
+        $stmt -> bindParam(":id", $datos["id"], PDO::PARAM_INT);
+        $stmt -> bindParam(":code", $datos["code"], PDO::PARAM_STR);
+        $stmt -> bindParam(":description", $datos["description"], PDO::PARAM_STR);
+        $stmt -> bindParam(":image", $datos["image"], PDO::PARAM_STR);
+        $stmt -> bindParam(":stock", $datos["stock"], PDO::PARAM_STR);
+        $stmt -> bindParam(":purchase_p", $datos["purchase_p"], PDO::PARAM_STR);
+        $stmt -> bindParam(":sale_p", $datos["sale_p"], PDO::PARAM_STR);
+
+        if($stmt->execute()){
+            return "ok";
+        }else{
+            return "error";
+        }
+
+        $stmt->close();
+        $stmt = null;
+    }
 }

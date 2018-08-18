@@ -30,7 +30,7 @@ class TableProducts{
                   "$ '.number_format($products[$i]["purchase_p"],2).'",
                   "$ '.number_format($products[$i]["sale_p"],2).'",
                   "'.$products[$i]["date"].'",
-                  "'.$products[$i]["id_p"].'"
+                  "'.$products[$i]["id"].'"
                 ],';
                }
                
@@ -49,7 +49,7 @@ class TableProducts{
                     "$ '.number_format($products[count($products)-1]["purchase_p"],2).'",
                     "$ '.number_format($products[count($products)-1]["sale_p"],2).'",
                     "'.$products[count($products)-1]["date"].'",
-                    "'.$products[count($products)-1]["id_p"].'"
+                    "'.$products[count($products)-1]["id"].'"
                   ]
                 ]
               }';

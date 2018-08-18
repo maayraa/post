@@ -49,7 +49,7 @@ class ProductsController{
                         imagepng($destination, $ruta);
                     }
                 }
-
+                $ruta = "views/img/products/default/anonymous.png";
                 $table = "products";
                 $datos = array("id" => $_POST["nuevaCategoria"],
                                "code" => $_POST["nuevoCodigo"],
@@ -64,7 +64,99 @@ class ProductsController{
                 echo '<script>
                 swal({
                     type: "success",
-                    title: "El producto no puede estar vacio o llevar caracteres especiales",
+                    title: "El producto se ha agregado correctamente",
+                    showConfirmButton: true,
+                    confirmButtonText: "cerrar"
+                    }).then((result) => {
+                        if(result.value) {
+                            window.location = "products";
+                        }
+                    })
+                </script>';
+             }
+
+            }else{
+                echo '<script>
+                    swal({
+                        type: "error",
+                        title: "El producto no puede estar vacio o llevar caracteres especiales",
+                        showConfirmButton: true,
+                        confirmButtonText: "cerrar"
+                        }).then((result) => {
+                            if(result.value) {
+                                window.location = "products";
+                            }
+                        })
+                    </script>';
+            }
+
+        }
+    }
+
+     /* Editar Producto*/
+     static public function ctrEditProduct(){
+        if(isset($_POST["editarDescripcion"])){
+            if(preg_match("/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/", $_POST["editarDescripcion"])&&
+                preg_match("/^[0-9]+$/", $_POST["editarStock"])&&
+                preg_match("/^[0-9]+$/", $_POST["editarPrecioCompra"])&&
+                preg_match("/^[0-9]+$/", $_POST["editarPrecioVenta"])){
+
+                    /* Validar Imagen */
+                $ruta = $_POST["imagenActual"];
+                if(isset($_FILES["editarImagen"]["tmp_name"])){
+                    list($ancho, $alto) = getimagesize($_FILES["editarImagen"]["tmp_name"]);
+                    $nuevoAncho = 500;
+                    $nuevoAlto = 500;
+                        
+                    /* Creamos el directorio donde vamos a guardar la foto del usuario*/
+                    $directorio = "views/img/products/".$_POST["editarCodigo"];
+                   
+                    /* Preguntamos si esxiste una imagen en la BD*/
+                   if(!empty($_POST["imagenActual"]) && $_POST["imagenActual"] != "views/img/products/default/anonymous.png"){
+                       unlink($_POST["imagenActual"]);
+                   }else{
+                       mkdir($directorio, 0755);
+                   }
+
+                    /* de acuerdo al tipo de imagen aplicamos las funciones por defecto de php*/
+                    if($_FILES["editarImagen"]["type"] == "image/jpeg"){
+                    
+                        /* Guardamos la imagen en el directorio*/
+                        $random = mt_rand(100, 999);
+                        $ruta = "views/img/products/".$_POST["editarCodigo"]."/".$random.".jpg";
+                        $origin = imagecreatefromjpeg($_FILES["editarImagen"]["tmp_name"]);
+                        $destination = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+                        imagecopyresized($destination, $origin, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+                        imagejpeg($destination, $ruta);
+                    }
+
+                    if($_FILES["editarImagen"]["type"] == "image/png"){
+                    
+                        /* Guardamos la imagen en el directorio*/
+                        $random = mt_rand(100, 999);
+                        $ruta = "views/img/products/".$_POST["editarCodigo"]."/".$random.".png";
+                        $origin = imagecreatefrompng($_FILES["editarImagen"]["tmp_name"]);
+                        $destination = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+                        imagecopyresized($destination, $origin, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+                        imagepng($destination, $ruta);
+                    }
+                }
+                $ruta = "views/img/products/default/anonymous.png";
+                $table = "products";
+                $datos = array("id" => $_POST["editarCategoria"],
+                               "code" => $_POST["editarCodigo"],
+                               "description" => $_POST["editarDescripcion"],
+                               "stock" => $_POST["editarStock"],
+                               "purchase_p" => $_POST["editarPrecioCompra"],
+                               "sale_p" => $_POST["nuevoPrecioVenta"],
+                               "image" => $ruta);
+
+            $respuesta = Products::mdEditProduct($table, $datos);
+             if($respuesta == "ok"){
+                echo '<script>
+                swal({
+                    type: "success",
+                    title: "El producto se ha editado correctamente",
                     showConfirmButton: true,
                     confirmButtonText: "cerrar"
                     }).then((result) => {

@@ -13,10 +13,20 @@ class AjaxProducts{
   public function ajaxCreateProductCode(){
     $item = "id";
     $value = $this->idCategory;
-    $respuesta = ProductsController::ctrViewProducts($item, $valor);
+    $respuesta = ProductsController::ctrViewProducts($item, $value);
     echo json_encode($respuesta);
 
   }
+
+  /* Editar Producto*/
+  public $idProduct;
+  public function ajaxEditProduct(){
+    $item ="id_p";
+    $value = $this->idProduct;
+    $respuesta = ProductsController::ctrViewProducts($item, $value);
+    echo json_encode($respuesta);
+  }
+
 }
 
 /* Generar codigo a partir de ID categoria*/
@@ -27,4 +37,9 @@ if(isset($_POST["idCategory"])){
 
 }
 
-
+/* editar producto*/
+if(isset($_POST["idProduct"])){
+  $productCode = new AjaxProducts();
+  $productCode -> idProduct = $_POST["idProduct"];
+  $productCode -> ajaxEditProduct();
+}
