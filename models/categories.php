@@ -26,7 +26,7 @@ class Categories{
             return $stmt -> fetch();
 
         }else{
-            $stmt = DBconnect::connect()->prepare("SELECT * FROM $table");
+            $stmt = DBconnect::connect()->prepare("SELECT * FROM categories");
             $stmt->execute();
             return $stmt -> fetchAll();
         }
@@ -37,7 +37,7 @@ class Categories{
 
         /* Editar categoria */
         static public function mdEditCategory($table, $datos){
-            $stmt = DbConnect::connect()->prepare("UPDATE $table SET category = :category WHERE id = :id");
+            $stmt = DBConnect::connect()->prepare("UPDATE $table SET category = :category WHERE id = :id");
             $stmt->bindParam(":category", $datos['category'], PDO::PARAM_STR);
             $stmt->bindParam(":id", $datos['id'], PDO::PARAM_INT);
             if($stmt->execute()){

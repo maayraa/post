@@ -1,9 +1,8 @@
 <?php 
 class ProductsController{
     /* Mostrar Productos*/
-    static public function ctrViewProducts($item, $value){
-        $table = "products";
-        $respuesta = Products::mdViewProducts($table, $item, $value);
+    public function ctrViewProducts($item, $value){
+        $respuesta = Products::mdViewProducts($item, $value);
         return $respuesta;
     }
 
@@ -49,8 +48,7 @@ class ProductsController{
                         imagepng($destination, $ruta);
                     }
                 }
-                $ruta = "views/img/products/default/anonymous.png";
-                $table = "products";
+               
                 $datos = array("id" => $_POST["nuevaCategoria"],
                                "code" => $_POST["nuevoCodigo"],
                                "description" => $_POST["nuevaDescripcion"],
@@ -60,7 +58,7 @@ class ProductsController{
                                "image" => $ruta);
 
             $respuesta = Products::mdEnterProduct($table, $datos);
-             if($respuesta == "ok"){
+             if($respuesta){
                 echo '<script>
                 swal({
                     type: "success",
@@ -141,8 +139,7 @@ class ProductsController{
                         imagepng($destination, $ruta);
                     }
                 }
-                $ruta = "views/img/products/default/anonymous.png";
-                $table = "products";
+
                 $datos = array("id" => $_POST["editarCategoria"],
                                "code" => $_POST["editarCodigo"],
                                "description" => $_POST["editarDescripcion"],
@@ -152,7 +149,7 @@ class ProductsController{
                                "image" => $ruta);
 
             $respuesta = Products::mdEditProduct($table, $datos);
-             if($respuesta == "ok"){
+             if($respuesta){
                 echo '<script>
                 swal({
                     type: "success",
@@ -184,4 +181,35 @@ class ProductsController{
 
         }
     }
-}
+   
+		/* Borrar el producto */
+		public function ctrDeleteProduct()
+		{
+			if (isset($_GET['idProduct'])) {
+ 				$datos = $_GET['idProduct'];
+ 				if($_GET["image"] != "" && $_GET["image"] != "views/img/products/default/anonymous.png"){
+					unlink($_GET["image"]);
+					rmdir('views/img/products/'.$_GET["code"]);
+				}
+				$respuesta = Products::mdDeleteProduct($datos);
+				if($respuesta){
+					echo'<script>
+					swal({
+						  type: "success",
+						  title: "El producto ha sido borrado correctamente",
+						  showConfirmButton: true,
+						  confirmButtonText: "Cerrar"
+						  }).then((result) => {
+									if (result.value) {
+	
+									window.location = "products";
+	
+									}
+								})
+	
+					</script>';
+	
+				}
+			}
+		}
+    }

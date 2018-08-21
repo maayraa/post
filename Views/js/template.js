@@ -28,12 +28,11 @@ $(document).ready(function () {
             // jquery.dataables.js cambio de lenguage #11717
             "zeroRecords": "No se encontraron registros"
         },
-        responsive: true
     });
 })
  /* iCheck - Checkbox radio inputs*/
  //Red color scheme for iCheck
- $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-    checkboxClass: 'icheckbox_minimal-red',
-    radioClass   : 'iradio_minimal-red'
+ $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+    checkboxClass: 'icheckbox_minimal-blue',
+    radioClass   : 'iradio_minimal-blue'
   })

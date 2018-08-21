@@ -1,6 +1,7 @@
-/* Cargando tabla dinamica*/
-var table = $(".tablaProductos").DataTable({
-    "ajax":"ajax/datatable-products.ajax.php",
+/* Cargar la tabla dinamica */
+
+var table = $('.tablaProductos').DataTable({
+    "ajax": "ajax/datatable-products.ajax.php",
     "columnDefs": [
         {
             "targets": -9,
@@ -8,68 +9,68 @@ var table = $(".tablaProductos").DataTable({
             "defaultContent": '<img class="img-thumbnail imgTabla" width="40px">'
 
         },
-
         {
             "targets": -1,
             "data": null,
-            "defaultContent": '<div class="btn-group"><button class="btn btn-warning btnEditProduct" idProduct data-toggle="modal" data-target="#ModalEditarProducto"><i class="fa fa-pencil"></i></button><button class="btn btn-danger btnDeleteProduct"idProduct><i class="fa fa-times"></i></button></div>'
+            "defaultContent": '<button class="btn btn-warning btnEditProduct" idProduct="" data-toggle="modal" data-target="#ModalEditarProducto"><i class="fa fa-pencil"></i></button><button class="btn btn-danger btnDeleteProduct" idProduct code image><i class="fa fa-times"></i></button>'
 
         }
+    
     ],
     "language": {
-        // jquery.dataTables.js cambio de lenguage #11340
-        "paginate": {
-            "next": "Siguiente",
-            "previous": "Anterior"
+ 
+        "sProcessing":     "Procesando...",
+        "sLengthMenu":     "Mostrar _MENU_ registros",
+        "sZeroRecords":    "No se encontraron resultados",
+        "sEmptyTable":     "Ningún dato disponible en esta tabla",
+        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":    "",
+        "sSearch":         "Buscar:",
+        "sUrl":            "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+        "sFirst":    "Primero",
+        "sLast":     "Último",
+        "sNext":     "Siguiente",
+        "sPrevious": "Anterior"
         },
-        // jquery.dataTables.js cambio de lenguage #11418
-        "info": "Ver de _START_ - _END_ de _TOTAL_ entradas",
-        // jquery.dataTables.js cambio de lenguage #11434
-        "infoEmpty": "Ver 0 - 0 de 0 entradas",
-        // jquery.dataTables.js cambio de lenguage #11579
-        "lengthMenu": 'Mostrar <select>'+
-                    '<option value="2">2</option>'+
-                    '<option value="10">10</option>'+
-                    '<option value="20">20</option>'+
-                    '<option value="-1">Todo</option>'+
-                    '</select> entradas',
-        // jquery.dataTables.js cambio de lenguage #11659
-        "search": "Buscar:",
-        // jquery.dataTables.js cambio de lenguage #11381
-        "emptyTable": "No hay datos disponibles en la tabla",
-        // jquery.dataables.js cambio de lenguage #11461
-        "infoFiltered": "(Filtrado de _MAX_ entradas totales)",
-        // jquery.dataables.js cambio de lenguage #11717
-        "zeroRecords": "No se encontraron registros"
-    },
-    responsive: true
+        "oAria": {
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
 
+    }
 })
 
-/* Activar los botones con los ID correspondientes*/
+/* Activar botones con los id correspondientes*/
 
 $('.tablaProductos tbody').on( 'click', 'button', function () {
     var data = table.row( $(this).parents('tr') ).data();
-    $(this).attr("idProduct", data);
-   
+    $(this).attr("idProduct", data[9]);
+    $(this).attr('code', data[2])
+    $(this).attr('image', data[1])
 })
 
 /* Funcion para cargar las imagenes*/
 function loadImages(){
     var imgTabla= $(".imgTabla");
-    for(var i =0; i < imgTabla.length; i++){
+    for(let i =0; i < imgTabla.length; i++){
         var data = table.row($(imgTabla[i]).parents("tr")).data();
-        $(imgTabla[i]).attr("src", data[1]);
+        $(imgTabla[i]).attr('src', data[1])
+        
     }
 }
- /* Cargamos imagenes cundo entramos a la pagina por primera vez*/
+
+/* Cargamos imagenes cundo entramos a la pagina por primera vez*/
 setTimeout(function(){
     loadImages();
-/* Cargamos imagenes cundo interactuamos con el paginador */
+}, 300);
 
-}, 300)
 
-$(".dataTables_paginate").click(function(){
+$(".dataTables_paginate").click(()=>{
     loadImages();
 })
 
@@ -108,9 +109,8 @@ $("#nuevaCategoria").change(function(){
             if(!respuesta){
                 var nuevoCodigo = idCategory+"01";
                 $("#nuevoCodigo").val(nuevoCodigo);
-                console.log("respuesta", respuesta);
             }else{
-                var nuevoCodigo = Number(respuesta["code"]) + 1;
+                let nuevoCodigo = Number(respuesta["code"]) + 1;
                 console.log("nuevoCodigo", nuevoCodigo);
                 $("#nuevoCodigo").val(nuevoCodigo);
             }
@@ -161,27 +161,28 @@ $(".porcentaje").on("ifChecked",function(){
 
 $(".nuevaImagen").change(function(){
     var image = this.files[0];
-    console.log(image);
+    console.log("image", image)
     /* validando el formato de la imagen jpg*/
 
     if(image["type"] != "image/jpeg" && image["type"] != "image/png" ){
         $(".nuevaImagen").val("");
+        $('.previsualizar').attr('src', 'views/img/products/default/anonymous.png')
             swal({
                 title:"Error al subir la imagen",
                 text:"La imagen debe ser en formato JPG o PNG",
                 type: "error",
                 confirmButtonText: "¡Cerrar!"
             });
-
-        }else if(image["size"] > 2000000){
-            $(".nuevaImagen").val("");
-            swal({
-                title:"Error al subir la imagen",
-                text:"La imagen no debe pesar mas de 2MB",
-                type: "error",
-                confirmButtonText: "¡Cerrar!"
+            /* validando el tamaño de la imagen*/
+        } else if (imagen['size'] > 5000000) {
+             $('.nuevaImagen').val('');
+             $('.previsualizar').attr('src', 'views/img/products/default/anonymous.png')
+             swal({
+                type: 'error',
+                title: "Error al subir la imagen",
+                text: "¡La imagen no debe pesar mas de 200MB!",
+                confirmButtonText: '¡Cerrar!'
             });
-
         }else{
             var datosImagen = new FileReader;
             datosImagen.readAsDataURL(image);
@@ -195,8 +196,8 @@ $(".nuevaImagen").change(function(){
 
 /* Editar Producto */
 $(".tablaProductos tbody").on("click", "button.btnEditProduct", function(){
-    var idProduct = $(this).attr("idProduct");
-    var datos = new FormData();
+    let idProduct = $(this).attr("idProduct");
+    let datos = new FormData();
     datos.append("idProduct", idProduct);
 
     $.ajax({
@@ -206,10 +207,10 @@ $(".tablaProductos tbody").on("click", "button.btnEditProduct", function(){
         cache: false,
         contentType: false,
         processData: false,
-        dataType:"json",
+        dataType: "json",
         success:function(respuesta){
             
-            var datosCategoria = new FormData();
+            let datosCategoria = new FormData();
             datosCategoria.append("idCategory", respuesta["id"]);
             $.ajax({
                 url:"ajax/categories.ajax.php",
@@ -236,3 +237,24 @@ $(".tablaProductos tbody").on("click", "button.btnEditProduct", function(){
         }
     })
 })
+
+/* Eliminar los Productos*/
+$('.tablaProductos tbody').on('click', 'button.btnDeleteProduct', function() {
+	let idProduct = $(this).attr('idProduct')
+	let code = $(this).attr('code')
+	let image = $(this).attr('image')
+	
+	swal({
+        title: '¿Estas seguro de borrar el usuario?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si, borrar producto!'
+    }).then((result) => {
+        if (result.value) {
+            window.location = 'index.php?ruta=products&idProduct='+idProduct+'&code='+code+'&image='+image
+        }
+    })
+}) 
