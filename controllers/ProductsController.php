@@ -57,7 +57,7 @@ class ProductsController{
                                "sale_p" => $_POST["nuevoPrecioVenta"],
                                "image" => $ruta);
 
-            $respuesta = Products::mdEnterProduct($table, $datos);
+            $respuesta = Products::mdEnterProduct($datos);
              if($respuesta){
                 echo '<script>
                 swal({
@@ -145,10 +145,10 @@ class ProductsController{
                                "description" => $_POST["editarDescripcion"],
                                "stock" => $_POST["editarStock"],
                                "purchase_p" => $_POST["editarPrecioCompra"],
-                               "sale_p" => $_POST["nuevoPrecioVenta"],
+                               "sale_p" => $_POST["editarPrecioVenta"],
                                "image" => $ruta);
 
-            $respuesta = Products::mdEditProduct($table, $datos);
+            $respuesta = Products::mdEditProduct($datos);
              if($respuesta){
                 echo '<script>
                 swal({
@@ -182,9 +182,9 @@ class ProductsController{
         }
     }
    
-		/* Borrar el producto */
-		public function ctrDeleteProduct()
-		{
+    /* Borrar el producto */
+    public function ctrDeleteProduct()
+    {
 			if (isset($_GET['idProduct'])) {
  				$datos = $_GET['idProduct'];
  				if($_GET["image"] != "" && $_GET["image"] != "views/img/products/default/anonymous.png"){
@@ -211,5 +211,5 @@ class ProductsController{
 	
 				}
 			}
-		}
     }
+}

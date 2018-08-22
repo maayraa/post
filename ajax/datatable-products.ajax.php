@@ -43,7 +43,6 @@ class TableProducts{
     
           echo '[
             "'.count($respuesta).'",
-            "'.($i+1).'",
             "'.$respuesta[count($respuesta)-1]["image"].'",
             "'.$respuesta[count($respuesta)-1]["code"].'",
             "'.$respuesta[count($respuesta)-1]["description"].'",
@@ -52,7 +51,7 @@ class TableProducts{
             "$ '.number_format($respuesta[count($respuesta)-1]["purchase_p"]).'",
             "$ '.number_format($respuesta[count($respuesta)-1]["sale_p"]).'",
             "'.$respuesta[count($respuesta)-1]["date"].'",
-            "'.$respuesta[count($respuesta)-1]["id"].'"
+            "'.$respuesta[count($respuesta)-1]["id_p"].'"
           ]
         ]
       }';
